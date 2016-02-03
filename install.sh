@@ -12,3 +12,17 @@ npm install express
 npm install body-parser
 npm install validator
 
+
+# Checking installation
+## Make sure, that nodeJS is installed
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' nodejs|grep "install ok installed")
+
+echo "Checking for nodejs": $PKG_OK
+
+## Print
+if [ "" eq "$PKG_OK" ] ; then
+  echo "No nodejs found!"
+fi
+
+echo "You can now start this project by executing the following command"
+echo "node node/server.js"

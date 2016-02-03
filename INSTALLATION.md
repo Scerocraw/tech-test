@@ -2,6 +2,12 @@
 
 #### The installation may requires sudo permissions
 
+### Automatic installation:
+For the automatic installation just execute the "install.sh" (sh ./install.sh)
+
+
+### Manual installation:
+
 ##### Step 1. CURL the nodesource 
 curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 
