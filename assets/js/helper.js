@@ -39,6 +39,7 @@ var tableHelper = {
             '<option value="email">String (E-Mail Format)</option>' +
             '<option value="numeric">Integer</option>' +
             '</select></td>' +
+            '<td class="options"><a class="deleteRowModal" href="#" title="Delete this row">Delete</a></td>' +
             '</tr>');
 
         // Re-register options
@@ -262,4 +263,18 @@ $(document).ready(function() {
         // Launch the modal for editing the table structure
         tableHelper.generateModal();
     });
+
+    // Get the current URI
+    var currentURI = window.location.pathname;
+
+    // Check the current URI
+    if(currentURI === "/save" || currentURI === "/saveTableStructure") {
+        // Remove all classes, fill the content with a good message, and finally add the class
+        $('#message').attr('class', '').html('Successfully saved').addClass('message-success').fadeIn();
+
+        // FadeOut after 2000 ms / 2 secs
+        setTimeout(function() {
+            $('#message').fadeOut();
+        }, 2000);
+    }
 });
