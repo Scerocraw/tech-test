@@ -19,7 +19,7 @@ var app         = express();
 // Config Object - contains important options (read more in the "INSTALLATION.md")
 var config      = {
     // The path to the "index" template
-    templateFile:  __dirname + "/../markup.html",
+    templateFile:  __dirname + "/../betterOverview.html",
 
     // The path to the storage.json file - our "database"
     storageFile: __dirname + "/../storage.json",

@@ -11,7 +11,7 @@ echo "Step 3: Installing npm additions"
 npm install express
 npm install body-parser
 npm install validator
-
+npm install -g mocha
 
 # Checking installation
 ## Make sure, that nodeJS is installed

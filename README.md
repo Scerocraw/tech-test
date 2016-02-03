@@ -9,3 +9,4 @@
 - A small covering note, where i consider different languages and also briefly explain my decision for the technologies: [`TECHNOLOGIES.md`](TECHNOLOGIES.md)
 - You can find the original README.MD in this file: [`README_ORIGINAL.md`](README_ORIGINAL.md)
 - Also a little [`FAQ.md`](FAQ.md) - just in case
+- Instruction for testing the application: [`TEST.md`](TEST.md) (based on mocha)

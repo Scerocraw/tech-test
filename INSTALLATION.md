@@ -32,10 +32,11 @@ For the automatic installation just execute the "install.sh"
 
 ##### Step 2. Install nodejs on [something else](https://nodejs.org/en/download/package-manager/)
 
-##### Step 3. Install "express" - a nodejs framework, "body-parser" - a middleware for handling JSON / RAW / Text / URL encoded form data, and "validator" to sanitize the users input
+##### Step 3. Install "express" - a nodejs framework, "body-parser" - a middleware for handling JSON / RAW / Text / URL encoded form data, "validator" to sanitize the users input, and "mocha" - a test framework for nodeJS
         npm install express 
         npm install body-parser
         npm install validator
+	npm install -g mocha
 
 ##### Step 4. Start the server (Please make sure, that you replaced "YOUR_PROJECT_PATH" with your Project Path
         node YOUR_PROJECT_PATH/node/server.js
