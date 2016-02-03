@@ -1,8 +1,6 @@
 // A small nodeJS Framework
 var express     = require('express');
 
-var http        = require('http');
-
 // A middleware for handling JSON / RAW / Text / URL encoded form data
 var bodyParser  = require('body-parser');
 
@@ -135,7 +133,7 @@ var internalHelper  = {
     /**
      * Contains the internal storage
      */
-    internalStorage: false,
+    internalStorage: {"0":{"firstname":"Jeff","surname":"Stelling"},"1":{"firstname":"Chris","surname":"Kamara"},"2":{"firstname":"Alex","surname":"Hammond"},"3":{"firstname":"Jim","surname":"White"},"4":{"firstname":"Natalie","surname":"Sawyer"}},
 
     /**
      * Write the storage into the file and in the internalStorage property as well
@@ -178,16 +176,14 @@ var internalHelper  = {
             // Return the content as JSON
             return internalHelper.internalStorage;
         }
-        // Fallback: Check if the storage file exists
-        if(internalHelper.checkDirectoryOrFile(config.storageFile)) {
-            // Read file
-            var tempStorage = JSON.parse(filesystem.readFile(path.resolve(config.storageFile)));
 
-            // Also validate the JSON Format
-            if(validator.isJSON(tempStorage)) {
-                // Return the content as JSON
-                return tempStorage;
-            }
+        // Read file
+        var tempStorage = JSON.parse(filesystem.readFile(path.resolve(config.storageFile)));
+
+        // Check if the tempStorage is given
+        if(tempStorage) {
+            // Return the content as JSON
+            return tempStorage;
         }
 
         // Neither
@@ -241,10 +237,43 @@ var internalHelper  = {
         console.log("Starting App..");
         console.log("Checking config properties..");
 
-        // Checking config files
-        console.log("Existing TemplateFile " + path.resolve(config.templateFile) + "? " + internalHelper.checkDirectoryOrFile(config.templateFile));
-        console.log("Existing storageFile " + path.resolve(config.storageFile) + "? " + internalHelper.checkDirectoryOrFile(config.storageFile));
-        console.log("Existing errorLogFile " + path.resolve(config.errorLogFile) + "? " + internalHelper.checkDirectoryOrFile(config.errorLogFile));
+        // Check if the file already exists on startup
+        filesystem.readFile(path.resolve(config.templateFile), 'utf8', function(error) {
+            // This means, that the file does not exists
+            if(!error) {
+                // Calling saveTableStructure to saving the default structure into a file
+                console.log("TemplateFile seems to be okay.")
+            }
+        });
+
+        // Check if the file already exists on startup
+        filesystem.readFile(path.resolve(config.storageFile), 'utf8', function(error) {
+            // This means, that the file does not exists
+            if(!error) {
+                // Get the content again
+                var tempStorage = filesystem.readFileSync(path.resolve(config.storageFile), 'utf8');
+
+                if(tempStorage) {
+                    // Write into internal property
+                    internalHelper.internalStorage = tempStorage;
+                }
+                // Calling saveTableStructure to saving the default structure into a file
+                console.log("StorageFile seems to be okay.")
+            } else {
+                console.log("Can not read StorageFile (" + path.resolve(config.storageFile) + "), but it's not critical.")
+            }
+        });
+
+        // Check if the file already exists on startup
+        filesystem.readFile(path.resolve(config.errorLogFile), 'utf8', function(error) {
+            // This means, that the file does not exists
+            if(!error) {
+                // Calling saveTableStructure to saving the default structure into a file
+                console.log("ErrorLogFile seems to be okay.")
+            } else {
+                console.log("Can not read ErrorLogFile (" + path.resolve(config.errorLogFile) + "), but it's not critical.")
+            }
+        });
 
         // Check if the file already exists on startup
         filesystem.readFile(path.resolve(config.tableStructureFile), 'utf8', function(error) {
@@ -252,19 +281,11 @@ var internalHelper  = {
             if(error) {
                 // Calling saveTableStructure to saving the default structure into a file
                 internalHelper.saveTableStructure();
+                console.log("Creating tableStructure..")
             }
         });
 
-        // Check if the storage file already exists
-        if(internalHelper.checkDirectoryOrFile(config.storageFile)) {
-            // Get the content and try parse to JSON
-            var tempStorage = filesystem.readFileSync(path.resolve(config.storageFile), 'utf8');
-
-            // Check if the tempStorage content is given
-            if(tempStorage) {
-                internalHelper.internalStorage = tempStorage;
-            }
-        }
+        console.log("Checks done.. Visit http://127.0.0.1:8080 for your application");
     },
 }
 
