@@ -26,13 +26,13 @@ In the "node/server.js" (Line 22) you can choose between 2 different Template Vi
 
 For that option change 
 
-	templateFile:  __dirname + "/../betterOverview.html",
+	templateFile:  __dirname + "/../markup.html",
 
 to
 
-	templateFile:  __dirname + "/../markup.html",
+	templateFile:  __dirname + "/../betterOverview.html",
 
-The betterOverview.html is the current default template. Please do not forget to restart the node server after changing the template. 
+The markup.html is the current default template. Please do not forget to restart the node server after changing the template. 
 
 ---
 

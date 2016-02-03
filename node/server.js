@@ -19,7 +19,7 @@ var app         = express();
 // Config Object - contains important options (read more in the "INSTALLATION.md")
 var config      = {
     // The path to the "index" template
-    templateFile:  __dirname + "/../betterOverview.html",
+    templateFile:  __dirname + "/../markup.html",
 
     // The path to the storage.json file - our "database"
     storageFile: __dirname + "/../storage.json",
@@ -45,37 +45,24 @@ var internalHelper  = {
      * @param message
      */
     addErrorLog: function(message) {
-        // Append the error log file
-        filesystem.appendFile( path.resolve(config.errorLogFile) , message + "\r\n\r\n", (errorWriteErrorFile) => {
-            // Check if we have an error writing the error log (how ironic)
-            if(errorWriteErrorFile) {
-                // Write into the terminal instead
-                console.log("Can not write error.log", errorWriteErrorFile, "Original message: ", message + "\r\n\r\n");
-            }
-        });
+        // Check if the path is given and not empty
+        if(config.errorLogFile) {
+            // Append the error log file
+            filesystem.appendFile( path.resolve(config.errorLogFile) , message + "\r\n\r\n", (errorWriteErrorFile) => {
+                // Check if we have an error writing the error log (how ironic)
+                if(errorWriteErrorFile) {
+                    // Write into the terminal instead
+                    console.log("Can not write error.log", errorWriteErrorFile, "Original message: ", message + "\r\n\r\n");
+                }
+            });
+        } else {
+            // Log inside the consle
+            console.log("Error Log: " + message);
+        }
+
     },
 
     tempStatus: false,
-
-    /**
-     * Checks if a directory exists
-     * @param path
-     * @return bool
-     *
-     * @ToDo - improve the return
-     */
-     checkDirectoryOrFile: function(pathToCheck) {
-        // Resolve the path
-        var sanitizedPath = path.resolve(pathToCheck);
-
-        // Check if the path exists and can READ / WRITE (R_OK / W_OK)
-        filesystem.accessSync(sanitizedPath, filesystem.R_OK | filesystem.W_OK, function (error) {
-            return error;
-        });
-
-        // Returns the status
-        return true;
-    },
 
     /**
      * Fallback / default layout
