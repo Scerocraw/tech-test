@@ -11,6 +11,8 @@ echo "Step 3: Installing npm additions"
 npm install express
 npm install body-parser
 npm install validator
+npm install supertest
+npm install should
 npm install -g mocha
 
 # Checking installation
